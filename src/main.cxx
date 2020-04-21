@@ -14,7 +14,7 @@ int fib(int n) {
 }
 
 int main() {
-	for (int i : iter::range(10)) {
+	for (int i : iter::range(15)) {
 		fmt::print("fib({}) = {}\n", i, fib(i));
 	}
 }
