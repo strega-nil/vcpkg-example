@@ -1,2 +1,2 @@
-build*
-vcpkg_modules
+/build*
+/vcpkg_modules
