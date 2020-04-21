@@ -4,9 +4,12 @@ project(vcpkg-example CXX)
 
 add_executable(vcpkg-example src/main.cxx)
 
-execute_process(
-  COMMAND vcpkg install --triplet ${VCPKG_TARGET_TRIPLET} --binarycaching
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+vcpkg_install_packages()
 
 find_package(fmt CONFIG REQUIRED)
-target_link_libraries(vcpkg-example PRIVATE fmt::fmt)
+find_package(cppitertools CONFIG REQUIRED)
+
+target_link_libraries(vcpkg-example
+  PRIVATE
+    fmt::fmt
+    cppitertools::cppitertools)
