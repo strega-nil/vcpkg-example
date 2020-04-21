@@ -1,0 +1,7 @@
+{
+  "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+  "cmake.configureSettings": {
+    "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+  },
+  "cmake.preferredGenerators": [ "Ninja" ]
+}
