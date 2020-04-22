@@ -16,6 +16,11 @@ jobs:
       - uses: "actions/checkout@v2"
       - id: "get-vcpkg"
         uses: "strega-nil/get-vcpkg@trunk"
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1"
+        with:
+          path: "${{ steps.get-vcpkg.outputs.vcpkg-root }}/archives"
+          key: "vcpkg-dependencies-${{ steps.get-vcpkg.outputs.commit-id }}"
       - name: "Configure"
         run: "cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++-9 -DCMAKE_TOOLCHAIN_FILE=${{ steps.get-vcpkg.outputs.vcpkg-root }}/scripts/buildsystems/vcpkg.cmake"
       - name: "Build"
