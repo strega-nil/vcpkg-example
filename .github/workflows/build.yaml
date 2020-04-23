@@ -22,7 +22,7 @@ jobs:
           path: "${{ steps.get-vcpkg.outputs.vcpkg-root }}/archives"
           key: "vcpkg-dependencies"
       - name: "vcpkg install"
-        run: "vcpkg install --binarycaching --debug"
+        run: "${{ steps.get-vcpkg.outputs.vcpkg-root }}/vcpkg install --binarycaching --debug"
       - name: "Configure"
         run: "cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++-9 -DCMAKE_TOOLCHAIN_FILE=${{ steps.get-vcpkg.outputs.vcpkg-root }}/scripts/buildsystems/vcpkg.cmake"
       - name: "Build"
