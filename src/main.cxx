@@ -1,9 +1,10 @@
 #include <fmt/format.h>
+#include <cppitertools/itertools.hpp>
 
 int fib(int n) {
 	int a = 0, b = 1;
 
-	for ([[maybe_unused]] int i = 0; i < n; ++i) {
+	for ([[maybe_unused]] int i : iter::range(n)) {
 		auto tmp = b;
 		b = a + b;
 		a = tmp;
@@ -13,7 +14,7 @@ int fib(int n) {
 }
 
 int main() {
-	for (int i = 0; i < 15; ++i) {
+	for (int i : iter::range(15)) {
 		fmt::print("fib({}) = {}\n", i, fib(i));
 	}
 }
