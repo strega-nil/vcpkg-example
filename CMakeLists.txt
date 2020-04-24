@@ -4,8 +4,6 @@ project(vcpkg-example CXX)
 
 add_executable(vcpkg-example src/main.cxx)
 
-vcpkg_install_packages()
-
 find_package(fmt CONFIG REQUIRED)
 find_package(cppitertools CONFIG REQUIRED)
 
