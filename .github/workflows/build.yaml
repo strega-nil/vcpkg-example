@@ -40,4 +40,9 @@ jobs:
         run: "cmake --build build"
 
       - name: "Run"
+        if: "contains( matrix.os, 'windows')"
+        run: "build/Debug/vcpkg-example.exe"
+
+      - name: "Run"
+        if: "!contains( matrix.os, 'windows')"
         run: "build/vcpkg-example"
