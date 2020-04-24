@@ -9,19 +9,45 @@ on:
       - trunk
 
 jobs:
-  build-linux:
-    name: "Build on Linux"
-    runs-on: "ubuntu-18.04"
+  job:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            bin: Debug/vcpkg-example.exe
+          - os: ubuntu-latest
+            bin: vcpkg-example
+          - os: macos-latest
+            bin: vcpkg-example
     steps:
       - uses: "actions/checkout@v2"
-      - id: "get-vcpkg"
-        uses: "strega-nil/get-vcpkg@trunk"
-      - name: "Cache dependencies"
+        with:
+          submodules: true
+
+      - name: Restore from cache and install vcpkg
+        uses: "lukka/run-vcpkg@v2"
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          setupOnly: true
+
+      - name: Cache vcpkg_modules
         uses: "actions/cache@v1"
         with:
-          path: "${{ steps.get-vcpkg.outputs.vcpkg-root }}/archives"
-          key: "vcpkg-dependencies"
-      - name: "Configure"
-        run: "cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++-9 -DCMAKE_TOOLCHAIN_FILE=${{ steps.get-vcpkg.outputs.vcpkg-root }}/scripts/buildsystems/vcpkg.cmake"
-      - name: "Build"
+          path: vcpkg_modules
+          key: ${{ matrix.os }}-modules-${{ hashFiles('vcpkg.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-modules-
+
+      - name: Configure and build dependencies
+        run: |
+          cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      - name: Build
         run: "cmake --build build"
+
+      - name: Run
+        run: |
+          build/${{ matrix.bin }}
