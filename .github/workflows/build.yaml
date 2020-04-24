@@ -18,7 +18,7 @@ jobs:
           submodules: true
 
       - name: Restore from cache and install vcpkg
-        uses: "lukka/run-vcpkg@2"
+        uses: "lukka/run-vcpkg@v2"
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
           appendedCacheKey: ${{ hashFiles('vcpkg.json') }}
