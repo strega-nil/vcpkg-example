@@ -21,7 +21,7 @@ jobs:
         uses: "lukka/run-vcpkg@2"
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          appendedCacheKey: '${{ hashFiles("vcpkg.json") }}'
+          appendedCacheKey: ${{ hashFiles('vcpkg.json') }}
           setupOnly: true
 
       - name: "Configure"
