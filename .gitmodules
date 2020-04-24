@@ -1,4 +1,4 @@
 [submodule "vcpkg"]
 	path = vcpkg
-	url = https://github.com/ras0219/vcpkg
+	url = https://github.com/strega-nil/vcpkg
 	branch = manifest
