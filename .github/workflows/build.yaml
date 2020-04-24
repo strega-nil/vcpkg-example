@@ -33,7 +33,8 @@ jobs:
           key: ${{ matrix.os }}-${{ hashFiles('vcpkg.json') }}
 
       - name: "Configure"
-        run: "cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake"
+        run: |
+          cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: "Build"
         run: "cmake --build build"
