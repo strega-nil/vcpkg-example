@@ -24,8 +24,13 @@ jobs:
         uses: "lukka/run-vcpkg@v2"
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          appendedCacheKey: ${{ hashFiles('vcpkg.json') }}
           setupOnly: true
+
+      - name: "Cache vcpkg_modules"
+        uses: "actions/cache@v1"
+        with:
+          path: vcpkg_modules
+          key: ${{ matrix.os }}-${{ hashFiles('vcpkg.json') }}
 
       - name: "Configure"
         run: "cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake"
