@@ -15,6 +15,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            bin: Debug/vcpkg-example.exe
+          - os: ubuntu-latest
+            bin: vcpkg-example
+          - os: macos-latest
+            bin: vcpkg-example
     steps:
       - uses: "actions/checkout@v2"
         with:
@@ -30,7 +37,9 @@ jobs:
         uses: "actions/cache@v1"
         with:
           path: vcpkg_modules
-          key: ${{ matrix.os }}-${{ hashFiles('vcpkg.json') }}
+          key: ${{ matrix.os }}-modules-${{ hashFiles('vcpkg.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-modules-
 
       - name: "Configure"
         run: |
@@ -40,9 +49,5 @@ jobs:
         run: "cmake --build build"
 
       - name: "Run"
-        if: "contains( matrix.os, 'windows')"
-        run: "build/Debug/vcpkg-example.exe"
-
-      - name: "Run"
-        if: "!contains( matrix.os, 'windows')"
-        run: "build/vcpkg-example"
+        run: |
+          build/${{ matrix.bin }}
