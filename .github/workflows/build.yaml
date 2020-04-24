@@ -33,7 +33,7 @@ jobs:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
           setupOnly: true
 
-      - name: "Cache vcpkg_modules"
+      - name: Cache vcpkg_modules
         uses: "actions/cache@v1"
         with:
           path: vcpkg_modules
@@ -41,13 +41,13 @@ jobs:
           restore-keys: |
             ${{ matrix.os }}-modules-
 
-      - name: "Configure"
+      - name: Configure and build dependencies
         run: |
           cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
-      - name: "Build"
+      - name: Build
         run: "cmake --build build"
 
-      - name: "Run"
+      - name: Run
         run: |
           build/${{ matrix.bin }}
