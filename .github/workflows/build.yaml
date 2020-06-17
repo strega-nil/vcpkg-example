@@ -42,8 +42,10 @@ jobs:
             ${{ matrix.os }}-modules-
 
       - name: Configure and build dependencies
-        run: |
-          cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        run: cmake -B build -S .
+        env:
+          VCPKG_FEATURE_FLAGS: 'manifests'
+          VCPKG_ROOT: '${{ github.workspace }}/vcpkg'
 
       - name: Build
         run: "cmake --build build"
