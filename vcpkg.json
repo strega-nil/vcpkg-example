@@ -1,8 +1,22 @@
 {
 	"name": "fmt-example",
-	"version": "0.0.1",
+	"version-string": "0.0.1",
 	"dependencies": [
 		"fmt",
-		"cppitertools"
-	]
+		"zlib"
+	],
+	"configuration": {
+		"default-registry": null,
+		"registries": [
+			{
+				"kind": "builtin",
+				"packages": [ "fmt" ]
+			},
+			{
+				"kind": "directory",
+				"path": "my-registry",
+				"packages": [ "zlib" ]
+			}
+		]
+	}
 }
