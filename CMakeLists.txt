@@ -4,12 +4,10 @@ project(vcpkg-example CXX)
 
 add_executable(vcpkg-example src/main.cxx)
 
-vcpkg_install_packages()
-
 find_package(fmt CONFIG REQUIRED)
-find_package(cppitertools CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
 
 target_link_libraries(vcpkg-example
   PRIVATE
     fmt::fmt
-    cppitertools::cppitertools)
+    ZLIB::ZLIB)
