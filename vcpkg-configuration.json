@@ -1,0 +1,14 @@
+{
+	"default-registry": null,
+	"registries": [
+		{
+			"kind": "builtin",
+			"packages": [ "fmt" ]
+		},
+		{
+			"kind": "directory",
+			"path": "my-registry",
+			"packages": [ "zlib" ]
+		}
+	]
+}
