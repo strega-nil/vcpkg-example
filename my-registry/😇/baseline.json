@@ -1,0 +1,5 @@
+{
+	"default": {
+		"zlib": { "version-string": "1.2.11", "port-version": 7 }
+	}
+}

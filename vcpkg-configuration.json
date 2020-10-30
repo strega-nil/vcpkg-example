@@ -6,7 +6,7 @@
 			"packages": [ "fmt" ]
 		},
 		{
-			"kind": "directory",
+			"kind": "filesystem",
 			"path": "my-registry",
 			"packages": [ "zlib" ]
 		}
