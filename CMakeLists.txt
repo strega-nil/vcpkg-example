@@ -6,21 +6,20 @@ if(NOT DEFINED VCPKG_ROOT)
 	endif()
 endif()
 
-if(DEFINED VCPKG_ROOT)
+if(DEFINED VCPKG_ROOT AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
 	set(
 		CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 		CACHE PATH "Path to vcpkg toolchain")
 
 	if(NOT EXISTS "${CMAKE_TOOLCHAIN_FILE}")
-		message(FATAL_ERROR "Invalid VCPKG_ROOT specified (${VCPKG_ROOT}); please specify an absolute path")
+		message(WARNING "Could not find toolchain file at ${CMAKE_TOOLCHAIN_FILE}")
+		message(FATAL_ERROR "Did you specify an absolute path for VCPKG_ROOT? (${VCPKG_ROOT})")
 	endif()
 endif()
 
 project(vcpkg-example CXX)
 
 add_executable(vcpkg-example src/main.cxx)
-
-vcpkg_install_packages()
 
 find_package(fmt CONFIG REQUIRED)
 find_package(cppitertools CONFIG REQUIRED)
